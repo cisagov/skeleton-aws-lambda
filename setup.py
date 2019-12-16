@@ -1,5 +1,5 @@
 """
-This is the setup module for the example project.
+This is the setup module for the example lambda.
 
 Based on:
 
@@ -11,7 +11,7 @@ Based on:
 from glob import glob
 from os.path import splitext, basename
 
-from setuptools import setup, find_packages
+from setuptools import setup
 
 
 def readme():
@@ -29,16 +29,16 @@ def package_vars(version_file):
 
 
 setup(
-    name="example",
+    name="example-aws-lambda",
     # Versions should comply with PEP440
-    version=package_vars("src/example/_version.py")["__version__"],
-    description="Example python library",
+    version=package_vars("eal/_version.py")["__version__"],
+    description="A skeleton with an example AWS lambda to build from.",
     long_description=readme(),
     long_description_content_type="text/markdown",
     # NCATS "homepage"
     url="https://www.us-cert.gov/resources/ncats",
     # The project's main homepage
-    download_url="https://github.com/cisagov/skeleton-python-library",
+    download_url="https://github.com/cisagov/skeleton-aws-lambda",
     # Author details
     author="Cyber and Infrastructure Security Agency",
     author_email="ncats@hq.dhs.gov",
@@ -59,16 +59,13 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
     ],
     # What does your project relate to?
     keywords="skeleton",
-    packages=find_packages(where="src"),
-    package_dir={"": "src"},
-    package_data={"example": ["data/*.txt"]},
-    py_modules=[splitext(basename(path))[0] for path in glob("src/*.py")],
-    include_package_data=True,
+    packages=["eal"],
+    py_modules=[splitext(basename(path))[0] for path in glob("eal/*.py")],
     install_requires=["docopt", "setuptools"],
     extras_require={"test": ["pre-commit", "pytest", "pytest-cov", "coveralls"]},
-    # Conveniently allows one to run the CLI tool as `example`
-    entry_points={"console_scripts": ["example = example.example:main"]},
+    entry_points={"console_scripts": ["eal = eal.example_aws_lambda:main"]},
 )

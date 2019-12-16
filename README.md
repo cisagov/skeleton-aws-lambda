@@ -1,18 +1,18 @@
-# skeleton-python-library #
+# skeleton-aws-lambda #
 
-[![GitHub Build Status](https://github.com/cisagov/skeleton-python-library/workflows/build/badge.svg)](https://github.com/cisagov/skeleton-python-library/actions)
-[![Coverage Status](https://coveralls.io/repos/github/cisagov/skeleton-python-library/badge.svg?branch=develop)](https://coveralls.io/github/cisagov/skeleton-python-library?branch=develop)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/cisagov/skeleton-python-library.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/cisagov/skeleton-python-library/alerts/)
-[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/cisagov/skeleton-python-library.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/cisagov/skeleton-python-library/context:python)
-[![Known Vulnerabilities](https://snyk.io/test/github/cisagov/skeleton-python-library/develop/badge.svg)](https://snyk.io/test/github/cisagov/skeleton-python-library)
+[![GitHub Build Status](https://github.com/cisagov/skeleton-aws-lambda/workflows/build/badge.svg)](https://github.com/cisagov/skeleton-aws-lambda/actions)
+[![Coverage Status](https://coveralls.io/repos/github/cisagov/skeleton-aws-lambda/badge.svg?branch=develop)](https://coveralls.io/github/cisagov/skeleton-aws-lambda?branch=develop)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/cisagov/skeleton-aws-lambda.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/cisagov/skeleton-aws-lambda/alerts/)
+[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/cisagov/skeleton-aws-lambda.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/cisagov/skeleton-aws-lambda/context:python)
+[![Known Vulnerabilities](https://snyk.io/test/github/cisagov/skeleton-aws-lambda/develop/badge.svg)](https://snyk.io/test/github/cisagov/skeleton-aws-lambda)
 
 This is a generic skeleton project that can be used to quickly get a
-new [cisagov](https://github.com/cisagov) Python library GitHub
+new [cisagov](https://github.com/cisagov) Python AWS Lambda GitHub
 project started.  This skeleton project contains [licensing
 information](LICENSE), as well as
 [pre-commit hooks](https://pre-commit.com) and
 [GitHub Actions](https://github.com/features/actions) configurations
-appropriate for a Python library project.
+appropriate for a Python based AWS Lambda.
 
 ## Contributing ##
 
