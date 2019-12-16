@@ -66,6 +66,8 @@ setup(
     packages=["eal"],
     py_modules=[splitext(basename(path))[0] for path in glob("eal/*.py")],
     install_requires=["docopt", "setuptools"],
-    extras_require={"test": ["pre-commit", "pytest", "pytest-cov", "coveralls"]},
+    extras_require={
+        "test": ["pre-commit", "pytest", "pytest-cov", "coveralls", "coverage < 5.0"]
+    },
     entry_points={"console_scripts": ["eal = eal.example_aws_lambda:main"]},
 )
