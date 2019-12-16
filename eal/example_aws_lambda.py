@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 """example_aws_lambda: An example AWS lambda for the cisagov organization.
+
 Usage:
   eal --region REGION --message MESSAGE [--log-level=LEVEL]
   eal (-h | --help)
@@ -27,7 +28,9 @@ import docopt
 # Local library
 from ._version import __version__
 
+
 def setup_logging(log_level):
+    """Set up logging at the provided level."""
     try:
         logging.basicConfig(
             format="%(asctime)-15s %(levelname)s %(message)s", level=log_level.upper()
@@ -38,6 +41,7 @@ def setup_logging(log_level):
             "are debug, info, warning, error, and critical."
         )
         return 1
+
 
 def do_lambda_functionality(region=None, invocation_time=None, message="Hello, World!"):
     """Print out the provided region, invocation time, and the function's time."""
@@ -51,6 +55,7 @@ def do_lambda_functionality(region=None, invocation_time=None, message="Hello, W
 
     return True
 
+
 def main():
     """Set up logging and call the import_data function."""
     # Parse command line arguments
@@ -59,11 +64,8 @@ def main():
     # Set up logging
     setup_logging(args["--log-level"])
 
-
     result = do_lambda_functionality(
-        args["--region"],
-        datetime.now(timezone.utc),
-        args["--message"]
+        args["--region"], datetime.now(timezone.utc), args["--message"]
     )
 
     # Stop logging and clean up

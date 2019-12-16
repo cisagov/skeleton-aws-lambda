@@ -39,7 +39,7 @@ def handler(event, context):
     result = eal.do_lambda_functionality(
         region=event["region"],
         invocation_time=event["time"],
-        message=os.environ["message"]
+        message=os.environ["message"],
     )
 
     return result
