@@ -18,11 +18,11 @@ Options:
                               [default: warning]
 """
 
-# Standard library
+# Standard Python Libraries
 from datetime import datetime, timezone
 import logging
 
-# Third-party libraries (install with pip)
+# Third-Party Libraries
 import docopt
 
 # Local library

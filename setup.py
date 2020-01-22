@@ -8,10 +8,12 @@ Based on:
 - https://blog.ionelmc.ro/2014/05/25/python-packaging/#the-structure
 """
 
+# Standard Python Libraries
 from glob import glob
-from os.path import splitext, basename
+from os.path import basename, splitext
 
-from setuptools import setup
+# Third-Party Libraries
+from setuptools import find_packages, setup
 
 
 def readme():
@@ -61,13 +63,23 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
     ],
+    python_requires=">=3.6",
     # What does your project relate to?
     keywords="skeleton",
-    packages=["eal"],
+    packages=find_packages(where="."),
     py_modules=[splitext(basename(path))[0] for path in glob("eal/*.py")],
     install_requires=["docopt", "setuptools"],
     extras_require={
-        "test": ["pre-commit", "pytest", "pytest-cov", "coveralls", "coverage < 5.0"]
+        "test": [
+            "pre-commit",
+            "coveralls",
+            # coveralls does not currently support coverage 5.0
+            # https://github.com/coveralls-clients/coveralls-python/issues/203
+            # is the issue for this on the coveralls project
+            "coverage < 5.0",
+            "pytest-cov",
+            "pytest",
+        ]
     },
     entry_points={"console_scripts": ["eal = eal.example_aws_lambda:main"]},
 )
