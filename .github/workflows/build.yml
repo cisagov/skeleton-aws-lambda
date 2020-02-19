@@ -97,7 +97,7 @@ jobs:
       # action will compress whatever is at/in the provided path. This results
       # in a zipped zip file.
       - name: Unzip produced zip
-        run: unzip findings-data-import.zip -d lambda_zip_contents
+        run: unzip skeleton-aws-lambda.zip -d lambda_zip_contents
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:
