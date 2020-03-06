@@ -25,10 +25,10 @@ from eal import example_aws_lambda as eal
 # and
 # https://stackoverflow.com/questions/37703609/using-python-logging-with-aws-lambda
 # for more details.
-root = logging.getLogger()
-if root.handlers:
-    for handler in root.handlers:
-        root.removeHandler(handler)
+logging_root = logging.getLogger()
+if logging_root.handlers:
+    for logging_handler in logging_root.handlers:
+        logging_root.removeHandler(logging_handler)
 
 
 def handler(event, context):
