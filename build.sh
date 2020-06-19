@@ -33,7 +33,7 @@ pip install --upgrade pip
 ###
 # Install local example AWS lambda (eal) and requirements.
 ###
-pip install -r requirements.txt
+pip install --requirement requirements.txt
 
 ###
 # Leave the Python virtual environment.
