@@ -150,4 +150,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: skeleton-aws-lambda-py${{ env.PY_VERSION }}
-          path: skeleton-aws-lambda.zip
+          path: lambda_zip_contents/
