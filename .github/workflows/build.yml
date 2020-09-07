@@ -137,13 +137,17 @@ jobs:
         run: docker-compose build
       - name: Generate lambda zip
         run: docker-compose up
-      # We have to unzip the produced lambda zip because the upload-artifact
-      # action will compress whatever is at/in the provided path. This results
-      # in a zipped zip file.
-      # - name: Unzip produced zip
-      #   run: unzip skeleton-aws-lambda.zip -d lambda_zip_contents
+      # We have to unzip the produced lambda zip because of limitations with the
+      # GitHub UI. Any files uploaded are packaged into a single zip to allow a
+      # user to download the artifacts of a build. This issue:
+      # https://github.com/actions/upload-artifact/issues/14
+      # is the best source for possible updates. Once the UI is updated we will
+      # most likely be able leverage the functionality of upload-artifact v2(+)
+      # to upload a single file as an artifact.
+      - name: Unzip produced zip
+        run: unzip skeleton-aws-lambda.zip -d lambda_zip_contents
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: skeleton-aws-lambda-${{ env.PY_VERSION }}
+          name: skeleton-aws-lambda-py${{ env.PY_VERSION }}
           path: skeleton-aws-lambda.zip
