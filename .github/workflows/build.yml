@@ -140,10 +140,10 @@ jobs:
       # We have to unzip the produced lambda zip because the upload-artifact
       # action will compress whatever is at/in the provided path. This results
       # in a zipped zip file.
-      - name: Unzip produced zip
-        run: unzip skeleton-aws-lambda.zip -d lambda_zip_contents
+      # - name: Unzip produced zip
+      #   run: unzip skeleton-aws-lambda.zip -d lambda_zip_contents
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: skeleton-aws-lambda
-          path: lambda_zip_contents/
+          name: skeleton-aws-lambda-${{ env.PY_VERSION }}
+          path: skeleton-aws-lambda.zip
