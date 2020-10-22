@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 """example_aws_lambda: An example AWS lambda for the cisagov organization.
 
 Usage:
@@ -72,7 +70,3 @@ def main():
     logging.shutdown()
 
     return 0 if result else -1
-
-
-if __name__ == "__main__":
-    main()
