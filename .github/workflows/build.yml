@@ -117,21 +117,20 @@ jobs:
     needs: build
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - id: setup-python
+        uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - name: Store installed Python version
-        run: |
-          echo "::set-env name=PY_VERSION::"\
-          "$(python -c "import platform;print(platform.python_version())")"
       - name: Cache lambda building environments
         uses: actions/cache@v2
         with:
           path: ${{ env.PIP_CACHE_DIR }}
-          key: "build_lambda-${{ runner.os }}-py${{ env.PY_VERSION }}-\
+          key: "build_lambda-${{ runner.os }}-\
+            py${{ steps.setup-python.outputs.python-version }}-\
             ${{ hashFiles('**/requirements.txt') }}"
           restore-keys: |
-            build_lambda-${{ runner.os }}-py${{ env.PY_VERSION }}-
+            build_lambda-${{ runner.os }}-\
+            py${{ steps.setup-python.outputs.python-version }}-
             build_lambda-${{ runner.os }}-
       - name: Install dependencies
         run: |
@@ -153,5 +152,6 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: skeleton-aws-lambda-py${{ env.PY_VERSION }}
+          name: "skeleton-aws-lambda-\
+            py${{ steps.setup-python.outputs.python-version }}"
           path: lambda_zip_contents/

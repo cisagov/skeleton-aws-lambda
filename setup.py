@@ -80,7 +80,7 @@ setup(
     keywords="skeleton",
     packages=find_packages(where="."),
     py_modules=[splitext(basename(path))[0] for path in glob("eal/*.py")],
-    install_requires=["docopt", "setuptools"],
+    install_requires=["docopt", "setuptools >= 24.2.0"],
     extras_require={
         "test": [
             "coverage",
