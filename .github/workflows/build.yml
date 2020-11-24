@@ -153,7 +153,9 @@ jobs:
       # most likely be able leverage the functionality of upload-artifact v2(+)
       # to upload a single file as an artifact.
       - name: Unzip produced zip
-        run: unzip skeleton-aws-lambda.zip -d lambda_zip_contents
+        run: |
+          unzip skeleton-aws-lambda_${{ matrix.python-version }}.zip \
+            -d lambda_zip_contents
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:

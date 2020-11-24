@@ -4,17 +4,43 @@ set -o nounset
 set -o errexit
 set -o pipefail
 
-if [ "$#" -ne 1 ]
+# Check for required external programs. If any are missing output a list of all
+# requirements and then exit.
+function check_dependencies {
+  required_tools="pip python zip"
+  for tool in $required_tools
+  do
+    if [ -z "$(command -v "$tool")" ]
+    then
+      echo "This script requires the following tools to run:"
+      for item in $required_tools
+      do
+        echo "- $item"
+      done
+      exit 1
+    fi
+  done
+}
+
+PY_VERSION="3.8"
+IMAGE_NAME="skeleton-aws-lambda"
+
+check_dependencies
+
+if [ -n "$BUILD_PY_VERSION" ]
 then
-  exit 1
-else
-  PY_VERSION="$1"
+  PY_VERSION="$BUILD_PY_VERSION"
+fi
+
+if [ -n "$BUILD_IMAGE_NAME" ]
+then
+  IMAGE_NAME="$BUILD_IMAGE_NAME"
 fi
 
 ###
 # Define the name of the Lambda zip file being produced.
 ###
-ZIP_FILE=skeleton-aws-lambda.zip
+ZIP_FILE="${IMAGE_NAME}_${PY_VERSION}.zip"
 
 ###
 # Set up the Python virtual environment.
@@ -22,15 +48,15 @@ ZIP_FILE=skeleton-aws-lambda.zip
 # installed in the container to avoid duplicating what will be available in the
 # lambda environment on AWS.
 ###
-VENV_DIR=/venv
-python -m venv --system-site-packages $VENV_DIR
+VENV_DIR="/venv"
+python -m venv --system-site-packages "$VENV_DIR"
 
 # Here shellcheck complains because it can't follow the dynamic path.
 # The path doesn't even exist until runtime, so we must disable that
 # check.
 #
 # shellcheck disable=1090
-source $VENV_DIR/bin/activate
+source "$VENV_DIR/bin/activate"
 
 ###
 # Upgrade pip.
@@ -70,7 +96,7 @@ cp lambda_handler.py "$BUILD_DIR"
 ###
 # Zip it all up.
 ###
-OUTPUT_DIR=/output
+OUTPUT_DIR="/output"
 if [ ! -d "$OUTPUT_DIR" ]
 then
     mkdir "$OUTPUT_DIR"
