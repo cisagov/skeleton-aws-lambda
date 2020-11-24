@@ -6,18 +6,19 @@ on:
     types: [prereleased, released]
 
 env:
-  ASSET_NAME: skeleton-aws-lambda.zip
   PIP_CACHE_DIR: ~/.cache/pip
-
+  PY_VERSION: 3.8
 jobs:
   release:
     runs-on: ubuntu-latest
+    env:
+      ASSET_NAME: skeleton-aws-lambda_${{ env.PY_VERSION }}.zip
     steps:
       - uses: actions/checkout@v2
       - id: setup-python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.8
+          python-version: ${{ env.PY_VERSION }}
       - name: Cache lambda building environments
         uses: actions/cache@v2
         with:
@@ -34,7 +35,7 @@ jobs:
           python -m pip install --upgrade pip wheel
           pip install --upgrade --requirement requirements.txt
       - name: Build environment
-        run: docker-compose build
+        run: docker-compose build --build-arg PY_VERSION=${{ env.PY_VERSION }}
       - name: Generate lambda zip
         run: docker-compose up
       - name: Upload lambda zip as release asset

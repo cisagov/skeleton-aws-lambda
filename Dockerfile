@@ -1,4 +1,5 @@
-FROM lambci/lambda:build-python3.8
+ARG PY_VERSION
+FROM lambci/lambda:build-python$PY_VERSION
 LABEL maintainer="mark.feldhousen@trio.dhs.gov"
 LABEL vendor="Cyber and Infrastructure Security Agency"
 
@@ -12,4 +13,4 @@ COPY eal ./eal
 
 COPY lambda_handler.py .
 
-ENTRYPOINT ["./build.sh"]
+ENTRYPOINT ["./build.sh", "$PY_VERSION"]

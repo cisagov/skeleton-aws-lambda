@@ -4,6 +4,13 @@ set -o nounset
 set -o errexit
 set -o pipefail
 
+if [ "$#" -ne 1 ]
+then
+  exit 1
+else
+  PY_VERSION="$1"
+fi
+
 ###
 # Define the name of the Lambda zip file being produced.
 ###
@@ -55,24 +62,24 @@ BUILD_DIR=/build
 # Copy all packages, including any hidden dotfiles. Also copy the
 # local eal package and the lambda handler.
 ###
-cp -rT $VENV_DIR/lib/python3.8/site-packages/ $BUILD_DIR
-cp -rT $VENV_DIR/lib64/python3.8/site-packages/ $BUILD_DIR
-cp -r eal $BUILD_DIR
-cp lambda_handler.py $BUILD_DIR
+cp -rT "$VENV_DIR/lib/python$PY_VERSION/site-packages/" "$BUILD_DIR"
+cp -rT "$VENV_DIR/lib64/python$PY_VERSION/site-packages/" "$BUILD_DIR"
+cp -r eal "$BUILD_DIR"
+cp lambda_handler.py "$BUILD_DIR"
 
 ###
 # Zip it all up.
 ###
 OUTPUT_DIR=/output
-if [ ! -d $OUTPUT_DIR ]
+if [ ! -d "$OUTPUT_DIR" ]
 then
-    mkdir $OUTPUT_DIR
+    mkdir "$OUTPUT_DIR"
 fi
 
-if [ -e $OUTPUT_DIR/$ZIP_FILE ]
+if [ -e "$OUTPUT_DIR/$ZIP_FILE" ]
 then
-    rm $OUTPUT_DIR/$ZIP_FILE
+    rm "$OUTPUT_DIR/$ZIP_FILE"
 fi
 
 cd $BUILD_DIR
-zip -rq9 $OUTPUT_DIR/$ZIP_FILE .
+zip -rq9 "$OUTPUT_DIR/$ZIP_FILE" .
