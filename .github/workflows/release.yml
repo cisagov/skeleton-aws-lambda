@@ -12,11 +12,14 @@ jobs:
   release:
     runs-on: ubuntu-latest
     env:
-      ASSET_NAME: skeleton-aws-lambda_${{ env.PY_VERSION }}.zip
+      ASSET_NAME: ${{ github.event.repository.name }}.zip
     steps:
       - uses: actions/checkout@v2
       - name: Build Docker image
-        run: docker-compose build --build-arg PY_VERSION=${{ env.PY_VERSION }}
+        run: "docker-compose build \
+          --build-arg PY_VERSION=${{ env.PY_VERSION }} \
+          --build-arg FILE_NAME=${{ github.event.repository.name }} \
+          --build-arg IS_RELEASE=TRUE"
       - name: Generate lambda zip
         run: docker-compose up
       - name: Upload lambda zip as release asset

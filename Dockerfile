@@ -6,12 +6,15 @@ LABEL vendor="Cyber and Infrastructure Security Agency"
 
 # Declare it a second time so it's brought into this scope.
 ARG PY_VERSION=3.8
-ARG IMAGE_NAME=skeleton-aws-lambda
+ARG FILE_NAME=skeleton-aws-lambda
+ARG IS_RELEASE=FALSE
 
 ENV BUILD_PY_VERSION=$PY_VERSION
-ENV BUILD_IMAGE_NAME=$IMAGE_NAME
+ENV BUILD_FILE_NAME=$FILE_NAME
+ENV BUILD_IS_RELEASE=$IS_RELEASE
 
 COPY build.sh .
+COPY bump_version.sh .
 
 COPY lambda_handler.py .
 

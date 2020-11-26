@@ -124,7 +124,8 @@ jobs:
       - name: Build Docker image
         run: |
           docker-compose build \
-            --build-arg PY_VERSION=${{ matrix.python-version }}
+            --build-arg PY_VERSION=${{ matrix.python-version }} \
+            --build-arg FILE_NAME=${{ github.event.repository.name }}
       - name: Generate lambda zip
         run: docker-compose up
       # We have to unzip the produced lambda zip because of limitations with the
@@ -136,10 +137,11 @@ jobs:
       # to upload a single file as an artifact.
       - name: Unzip generated zip
         run: |
-          unzip skeleton-aws-lambda_${{ matrix.python-version }}.zip \
+          unzip ${{ github.event.repository.name }}*.zip \
             -d lambda_zip_contents
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: skeleton-aws-lambda-py${{ matrix.python-version }}
+          name: "${{ github.event.repository.name }}-${{ github.sha }}-\
+            py${{ matrix.python-version }}"
           path: lambda_zip_contents/
