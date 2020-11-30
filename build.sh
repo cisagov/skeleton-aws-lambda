@@ -22,32 +22,16 @@ function check_dependencies {
   done
 }
 
-PY_VERSION="3.8"
-FILE_NAME="skeleton-aws-lambda"
-
 check_dependencies
 
-if [ -n "$BUILD_PY_VERSION" ]
-then
-  PY_VERSION="$BUILD_PY_VERSION"
-fi
-
-if [ -n "$BUILD_FILE_NAME" ]
-then
-  FILE_NAME="$BUILD_FILE_NAME"
-fi
-
-LAMBDA_VERSION=$(./bump_version.sh show)
+PY_VERSION="${BUILD_PY_VERSION:-3.8}"
+# Use the current directory name
+FILE_NAME="${BUILD_FILE_NAME:-${PWD##*/}}"
 
 ###
 # Define the name of the Lambda zip file being produced.
 ###
-if [ -n "$BUILD_IS_RELEASE" ] && [ "$BUILD_IS_RELEASE" == "TRUE" ]
-then
-  ZIP_FILE="${FILE_NAME}.zip"
-else
-  ZIP_FILE="${FILE_NAME}_${LAMBDA_VERSION}_py${PY_VERSION}.zip"
-fi
+ZIP_FILE="${FILE_NAME}.zip"
 
 ###
 # Set up the Python virtual environment.

@@ -4,4 +4,4 @@
 .pytest_cache
 .python-version
 __pycache__
-skeleton-aws-lambda*.zip
+skeleton-aws-lambda.zip

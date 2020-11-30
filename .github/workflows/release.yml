@@ -7,19 +7,19 @@ on:
 
 env:
   PIP_CACHE_DIR: ~/.cache/pip
-  PY_VERSION: 3.8
 jobs:
   release:
     runs-on: ubuntu-latest
-    env:
-      ASSET_NAME: ${{ github.event.repository.name }}.zip
+    strategy:
+      matrix:
+        # Versions supported by AWS and lambci/lambda images
+        python-version: [3.6, 3.7, 3.8]
     steps:
       - uses: actions/checkout@v2
       - name: Build Docker image
         run: "docker-compose build \
-          --build-arg PY_VERSION=${{ env.PY_VERSION }} \
-          --build-arg FILE_NAME=${{ github.event.repository.name }} \
-          --build-arg IS_RELEASE=TRUE"
+          --build-arg PY_VERSION=${{ matrix.python-version }} \
+          --build-arg FILE_NAME=${{ github.event.repository.name }}"
       - name: Generate lambda zip
         run: docker-compose up
       - name: Upload lambda zip as release asset
@@ -28,6 +28,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ${{ env.ASSET_NAME }}
-          asset_name: ${{ env.ASSET_NAME }}
+          asset_path: "${{ github.event.repository.name }}.zip"
+          asset_name: "${{ github.event.repository.name }}-\
+            ${{ matrix.python-version }}.zip"
           asset_content_type: application/zip

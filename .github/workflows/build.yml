@@ -121,6 +121,9 @@ jobs:
         python-version: [3.6, 3.7, 3.8]
     steps:
       - uses: actions/checkout@v2
+      - name: Get short SHA for the commit being used
+        run: |
+          echo "GH_SHORT_SHA=${GITHUB_SHA::7}" >> $GITHUB_ENV
       - name: Build Docker image
         run: |
           docker-compose build \
@@ -137,11 +140,12 @@ jobs:
       # to upload a single file as an artifact.
       - name: Unzip generated zip
         run: |
-          unzip ${{ github.event.repository.name }}*.zip \
+          unzip ${{ github.event.repository.name }}.zip \
             -d lambda_zip_contents
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: "${{ github.event.repository.name }}-${{ github.sha }}-\
-            py${{ matrix.python-version }}"
+          name: "${{ github.event.repository.name }}-\
+            py${{ matrix.python-version }}-\
+            ${{ env.GH_SHORT_SHA }}"
           path: lambda_zip_contents/
