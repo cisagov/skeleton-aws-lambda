@@ -126,7 +126,7 @@ jobs:
           echo "GH_SHORT_SHA=${GITHUB_SHA::7}" >> $GITHUB_ENV
       - name: Build Docker image
         run: |
-          docker-compose build \
+          DOCKER_BUILDKIT=1 docker-compose build \
             --build-arg PY_VERSION=${{ matrix.python-version }} \
             --build-arg FILE_NAME=${{ github.event.repository.name }}
       - name: Generate lambda zip

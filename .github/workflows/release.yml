@@ -17,9 +17,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build Docker image
-        run: "docker-compose build \
-          --build-arg PY_VERSION=${{ matrix.python-version }} \
-          --build-arg FILE_NAME=${{ github.event.repository.name }}"
+        run: |
+          DOCKER_BUILDKIT=1 docker-compose build \
+            --build-arg PY_VERSION=${{ matrix.python-version }} \
+            --build-arg FILE_NAME=${{ github.event.repository.name }}
       - name: Generate lambda zip
         run: docker-compose up
       - name: Upload lambda zip as release asset
