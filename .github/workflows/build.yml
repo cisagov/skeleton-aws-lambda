@@ -125,6 +125,9 @@ jobs:
         run: |
           echo "GH_SHORT_SHA=${GITHUB_SHA::7}" >> $GITHUB_ENV
       - name: Build Docker image
+        # DOCKER_BUILDKIT=1 tells Docker to use BuildKit when building the
+        # image per:
+        # https://docs.docker.com/develop/develop-images/build_enhancements/
         run: |
           DOCKER_BUILDKIT=1 docker-compose build \
             --build-arg PY_VERSION=${{ matrix.python-version }} \
