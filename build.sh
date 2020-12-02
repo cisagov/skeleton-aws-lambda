@@ -79,9 +79,9 @@ BUILD_DIR=/build
 # Copy all packages, including any hidden dotfiles. Also copy the
 # local eal package and the lambda handler.
 ###
-cp -rT "$VENV_DIR/lib/python$PY_VERSION/site-packages/" "$BUILD_DIR"
-cp -rT "$VENV_DIR/lib64/python$PY_VERSION/site-packages/" "$BUILD_DIR"
-cp -r eal "$BUILD_DIR"
+cp --recursive --no-target-directory "$VENV_DIR/lib/python$PY_VERSION/site-packages/" "$BUILD_DIR"
+cp --recursive --no-target-directory "$VENV_DIR/lib64/python$PY_VERSION/site-packages/" "$BUILD_DIR"
+cp --recursive eal "$BUILD_DIR"
 cp lambda_handler.py "$BUILD_DIR"
 
 ###
