@@ -99,4 +99,6 @@ then
 fi
 
 cd $BUILD_DIR
+# Recursively (-r) add the current directory to the specified output filename
+# using maximum compression (-9) without informational message (-q).
 zip -rq9 "$OUTPUT_DIR/$ZIP_FILE" .
