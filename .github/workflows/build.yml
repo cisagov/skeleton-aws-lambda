@@ -137,7 +137,9 @@ jobs:
       # https://github.com/actions/upload-artifact/issues/14
       # is the best source for possible updates. Once the UI is updated we will
       # most likely be able leverage the functionality of upload-artifact v2(+)
-      # to upload a single file as an artifact.
+      # to upload a single file as an artifact. Until then we extract the
+      # contents to the "lambda_zip_contents" directory to let
+      # actions/upload-artifacts repackage them for availability on GitHub.
       - name: Unzip generated zip
         run: |
           unzip ${{ github.event.repository.name }}.zip \
