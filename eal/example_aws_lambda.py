@@ -54,7 +54,7 @@ def do_lambda_functionality(region=None, invocation_time=None, message="Hello, W
     return True
 
 
-def main():
+def main() -> int:
     """Set up logging and call the import_data function."""
     # Parse command line arguments
     args = docopt.docopt(__doc__, version=__version__)
