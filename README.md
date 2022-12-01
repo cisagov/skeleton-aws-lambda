@@ -1,5 +1,12 @@
 # skeleton-aws-lambda #
 
+## ⚠ Notice ⚠ ##
+
+This project has been deprecated. A replacement project using a more modern
+approach can be found at [cisagov/skeleton-aws-lambda-python](https://github.com/cisagov/skeleton-aws-lambda-python).
+If you need to create AWS Lambdas using Python runtimes please base your project
+on that skeleton.
+
 [![GitHub Build Status](https://github.com/cisagov/skeleton-aws-lambda/workflows/build/badge.svg)](https://github.com/cisagov/skeleton-aws-lambda/actions)
 [![Coverage Status](https://coveralls.io/repos/github/cisagov/skeleton-aws-lambda/badge.svg?branch=develop)](https://coveralls.io/github/cisagov/skeleton-aws-lambda?branch=develop)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/cisagov/skeleton-aws-lambda.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/cisagov/skeleton-aws-lambda/alerts/)
